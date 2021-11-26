@@ -14,25 +14,36 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
-      .map(card => ({ ...card, id: Math.random() }))
+      .map((card) => ({ ...card, id: Math.random() }));
 
     setCards(shuffledCards);
     setTurns(0);
   };
 
-  console.log(cards, turns);
+  // Handle a choice
+  const handleChoice = (card) => {
+    console.log(card);
+    // Ternary operator says that if null then false and not null then true
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
 
   return (
     <div className="App">
       <h1>Magic Match</h1>
       <button onClick={shuffleCards}>New Game</button>
       <div className="card-grid">
-        {cards.map(card => (
-          <SingleCard key={card.id} cardProp={card}/>
+        {cards.map((card) => (
+          <SingleCard
+            key={card.id}
+            handleChoiceProp={handleChoice}
+            cardProp={card}
+          />
         ))}
       </div>
     </div>
