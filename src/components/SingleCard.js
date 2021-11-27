@@ -2,9 +2,11 @@ import React from "react";
 
 // styles
 import "./SingleCard.css";
-export default function SingleCard({ cardProp, handleChoiceProp, flipped }) {
+export default function SingleCard({ cardProp, handleChoiceProp, flipped, disabled }) {
   const cardBackClickHandler = () => {
-    handleChoiceProp(cardProp);
+    if(!disabled){
+      handleChoiceProp(cardProp);   
+    }
   };
   return (
     <div className="card">
